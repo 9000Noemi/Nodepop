@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import User from '../models/User.js';
 var router = Router();
 
 /* GET users listing. */
