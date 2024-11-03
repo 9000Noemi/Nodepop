@@ -12,6 +12,8 @@ import { fileURLToPath } from 'url';
 
 import connectMongoose from './lib/connectMongoose.js';
 
+import * as sessionManager from './lib/sessionManager.js'
+
 await connectMongoose()
 
 const app = express();
@@ -31,8 +33,13 @@ app.use(cookieParser());
 app.use(express.static(join(__dirname, 'public')));
 
 
+// Middleware de sesión creado en sessionManager
+app.use(sessionManager.middleware, sessionManager.useSessionInViews);
+
+// Define las rutas después del middleware de sesión
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
