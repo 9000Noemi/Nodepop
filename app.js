@@ -12,7 +12,9 @@ import { fileURLToPath } from 'url';
 
 import connectMongoose from './lib/connectMongoose.js';
 
-import * as sessionManager from './lib/sessionManager.js'
+import * as sessionManager from './lib/sessionManager.js';
+
+import * as productController from './controllers/productController.js'
 
 await connectMongoose()
 
@@ -36,9 +38,8 @@ app.use(express.static(join(__dirname, 'public')));
 // Middleware de sesión creado en sessionManager
 app.use(sessionManager.middleware, sessionManager.useSessionInViews);
 
-// Define las rutas después del middleware de sesión
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//Creamos un nuevo producto, la ruta externa que va a tener y lo probamos con postman
+app.post('/product/new', productController.createProduct);
 
 
 // catch 404 and forward to error handler
