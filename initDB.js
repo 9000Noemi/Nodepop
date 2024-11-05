@@ -2,6 +2,7 @@ import readline from 'node:readline'
 import connectMongoose from "./lib/connectMongoose.js";
 
 import User from './models/User.js'
+import { userInfo } from 'node:os';
 
 const connection = await connectMongoose()
 
@@ -37,10 +38,12 @@ async function initUsers(){
     const deleteResult = await User.deleteMany()
     console.log(`Deleted ${deleteResult.deleteCount} users.`)
 
+    const hashedPassword = await User.hashPassword('1234')
+    console.log(hashedPassword)
     //create initial users
     const insertResult = await User.insertMany([
-        {email: 'user1@example.com', password: '1234'},
-        {email: 'user2@example.com', password: '1234'}
+        {email: 'user1@example.com', password: hashedPassword},
+        {email: 'user2@example.com', password: hashedPassword}
     ])
 
     console.log(`Created ${insertResult.length} users.`)

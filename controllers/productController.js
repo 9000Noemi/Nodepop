@@ -59,3 +59,28 @@ export async function deleteProduct(req, res, next) {
   res.redirect('/')
 
 }
+
+//Consultar listado de productos del usuario
+
+export async function getProducts(req, res, next){
+  try{
+    const userId = req.session.userId;
+
+    //Creo una variable para guardar la lista de productos
+    let productList;
+
+    //REVISAR!!!!!
+    if (!userId){
+      console.log('No hay productos.')
+    }else{
+      productList = await Product.find ({owner: userId})
+    }
+    //res.json()
+    return productList;
+
+  }catch (err) {
+    next(err)
+  }
+  
+
+}

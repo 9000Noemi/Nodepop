@@ -1,4 +1,5 @@
 import mongoose, {Schema} from 'mongoose'
+import * as bcrypt from 'bcrypt'
 
 const userSchema = new Schema({
     email: {type: String, unique: true},
@@ -7,7 +8,7 @@ const userSchema = new Schema({
 
 //para devolver la contraseña encriptada
 userSchema.statics.hashPassword = function (unencryptedPassword) {
-    return bcrypt.hash(unencryptedPassword, 9);
+    return bcrypt.hash(unencryptedPassword, 7);
   };
 
 

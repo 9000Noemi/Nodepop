@@ -1,8 +1,12 @@
+//www arranca la aplicacion
+
 import http from 'node:http';
 import app from '../app.js';
 import createDebug from 'debug';
 
-const debug = createDebug('nodepop:server');
+const debug = createDebug('nodepop:www');
+
+//variable de entorno: la leemos con el objeto process, que tiene la propiedad env que tiene la info de variables de entorno
 const port = process.env.PORT || '3000';
 
 /**

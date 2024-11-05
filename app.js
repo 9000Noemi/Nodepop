@@ -1,5 +1,5 @@
-import createError from 'http-errors';
 import express, { json, urlencoded } from 'express';
+import createError from 'http-errors';
 import { join } from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
@@ -14,19 +14,24 @@ import connectMongoose from './lib/connectMongoose.js';
 
 import * as sessionManager from './lib/sessionManager.js';
 
+import * as homeController from './controllers/homeController.js'
 import * as productController from './controllers/productController.js'
+import * as loginController from './controllers/loginController.js'
 
 await connectMongoose()
 
 const app = express();
 
+app.locals.appName = 'Nodepop';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-// view engine setup
-app.set('views', join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// Indicamos donde estan las vistas y qué motor de plantillas usamos:
+app.set('views', 'views') 
+app.set('view engine', 'ejs')
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -34,12 +39,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, 'public')));
 
+/**
+ * Application routes
+ */
 
 // Middleware de sesión creado en sessionManager
 app.use(sessionManager.middleware, sessionManager.useSessionInViews);
 
-//Creamos un nuevo producto, la ruta externa que va a tener y lo probamos con postman
-app.post('/product/new', productController.createProduct);
+//Endpoints publicos
+app.get('/', homeController.index)
+app.get('/login', loginController.index)
+app.post('/login', loginController.login)
+app.all('/logout', loginController.logout)
+
+//Endpoints privados
+app.post('/product/new', sessionManager.isLoggedIn, productController.createProduct);
+app.delete('/product/delete/:productId', sessionManager.isLoggedIn, productController.deleteProduct);
+app.get('/product/list', sessionManager.isLoggedIn, productController.getProducts);
+
+// Ruta base
+app.use('/', indexRouter);
 
 
 // catch 404 and forward to error handler
