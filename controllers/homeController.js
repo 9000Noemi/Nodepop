@@ -1,9 +1,9 @@
 import assert from 'node:assert';
 import Product from '../models/Product.js';
 
-// GET / INDEX
 
 export async function index(req, res, next) {
+  
   try {
     const userId = req.session.userId;
 

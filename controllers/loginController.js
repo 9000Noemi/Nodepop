@@ -26,11 +26,8 @@ export async function login(req, res, next) {
     
     req.session.userId = user._id
     req.session.userName = user.email
-    console.log(req.session)
-    res.status(200).json({message: "Logado correctamente"})
+    res.redirect('/')
 
-    // redirect a la home
-    // res.redirect('/')
   } catch (error) {
     next(error)
   }
@@ -40,7 +37,6 @@ export async function login(req, res, next) {
 export function logout(req, res, next) {
   req.session.regenerate(err => {
     if (err) return next(err)
-    res.json("Logout correcto")
-    //res.redirect('/')
+    res.redirect('/')
   })
 }

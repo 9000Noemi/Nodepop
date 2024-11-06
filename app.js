@@ -53,13 +53,9 @@ app.post('/login', loginController.login)
 app.all('/logout', loginController.logout)
 
 //Endpoints privados
+app.get('/product/new', sessionManager.isLoggedIn, productController.index)
 app.post('/product/new', sessionManager.isLoggedIn, productController.createProduct);
-app.delete('/product/delete/:productId', sessionManager.isLoggedIn, productController.deleteProduct);
-app.get('/product/list', sessionManager.isLoggedIn, productController.getProducts);
-
-// Ruta base
-app.use('/', indexRouter);
-
+app.get('/product/delete/:productId', sessionManager.isLoggedIn, productController.deleteProduct);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

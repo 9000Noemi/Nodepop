@@ -8,6 +8,7 @@ export function index(req, res, next) {
 //Crear producto
 
 export async function createProduct(req, res, next) {
+  
   try {
     const userId = req.session.userId
     
@@ -22,8 +23,6 @@ export async function createProduct(req, res, next) {
       tags
     })
 
-    console.log(product)
-
     // la guardo en base de datos
     await product.save()
 
@@ -37,6 +36,8 @@ export async function createProduct(req, res, next) {
 //Borrar producto
 
 export async function deleteProduct(req, res, next) {
+
+  console.log("AQUIIII")
   const userId = req.session.userId
   const productId = req.params.productId
 
@@ -60,27 +61,3 @@ export async function deleteProduct(req, res, next) {
 
 }
 
-//Consultar listado de productos del usuario
-
-export async function getProducts(req, res, next){
-  try{
-    const userId = req.session.userId;
-
-    //Creo una variable para guardar la lista de productos
-    let productList;
-
-    //REVISAR!!!!!
-    if (!userId){
-      console.log('No hay productos.')
-    }else{
-      productList = await Product.find ({owner: userId})
-    }
-    //res.json()
-    return productList;
-
-  }catch (err) {
-    next(err)
-  }
-  
-
-}

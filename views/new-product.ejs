@@ -1,0 +1,50 @@
+<%- include('header.ejs') %>
+
+<div class="container">
+
+  <h3>New Product</h3>
+
+  <form method="POST">
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre</label>
+      <input type="text" name="name" class="form-control" id="name" >
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Precio</label>
+      <input type="number" name="price" class="form-control" id="price">
+    </div>
+
+    <div class="mb-3">
+        <label for="photo" class="form-label">Foto</label>
+        <input type="text" name="photo" class="form-control" id="photo">
+      </div>
+
+    <div class="mb-3">
+        <legend>Etiquetas</legend>
+
+        <label>
+            <input type="checkbox" name="tags" value="work">
+            Work
+          </label>
+          <label>
+            <input type="checkbox" name="tags" value="lifestyle">
+            Lifestyle
+          </label>
+          <label>
+            <input type="checkbox" name="tags" value="motor">
+            Motor
+          </label>
+          <label>
+            <input type="checkbox" name="tags" value="mobile">
+            Mobile
+          </label>
+      </div>
+
+    <button type="submit" class="btn btn-primary">Enviar</button>
+
+  </form>
+</div>
+
+<%- include('footer.ejs') %>
