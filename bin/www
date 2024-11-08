@@ -9,9 +9,8 @@ const debug = createDebug('nodepop:www');
 //variable de entorno: la leemos con el objeto process, que tiene la propiedad env que tiene la info de variables de entorno
 const port = process.env.PORT || '3000';
 
-/**
- * Create HTTP server.
- */
+
+//Crear el HTTP server.
 
 const server = http.createServer(app)
 

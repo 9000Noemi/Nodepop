@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "cross-env DEBUG=NODEPOP:* node --watch ./bin/www",
+    "start": "cross-env NODEPOP_ENV=production node ./bin/www",
+    "dev": "cross-env DEBUG=NODEPOP:* NODEPOP_ENV=development node --watch ./bin/www",
     "initDB": "node initDB.js"
   },
   "dependencies": {

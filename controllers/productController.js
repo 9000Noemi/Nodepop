@@ -8,10 +8,8 @@ export function index(req, res, next) {
 //Crear producto
 
 export async function createProduct(req, res, next) {
-  
   try {
     const userId = req.session.userId
-    
     const {name, price, image, tags} = req.body
 
     // creo una instancia de producto en memoria
@@ -37,7 +35,6 @@ export async function createProduct(req, res, next) {
 
 export async function deleteProduct(req, res, next) {
 
-  console.log("AQUIIII")
   const userId = req.session.userId
   const productId = req.params.productId
 

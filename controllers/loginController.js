@@ -35,6 +35,7 @@ export async function login(req, res, next) {
 }
 
 export function logout(req, res, next) {
+  //en req sesion esta el contenido de la sesion del usuario que ha hecho la peticion, el metodo regenerate regenera la sesion
   req.session.regenerate(err => {
     if (err) return next(err)
     res.redirect('/')
