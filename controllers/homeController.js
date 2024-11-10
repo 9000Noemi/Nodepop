@@ -3,7 +3,7 @@ import Product from '../models/Product.js';
 
 
 export async function index(req, res, next) {
-  
+
   try {
     const userId = req.session.userId;
 

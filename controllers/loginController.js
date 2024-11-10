@@ -18,12 +18,12 @@ export async function login(req, res, next) {
       res.locals.error = 'El usuario o contraseña no es correcto.'
       res.locals.email = email
       res.render('login')
-      
+
       return
     }
 
     // si el usuario existe y la contraseña coincide --> apuntar en su sesión, que está logado
-    
+
     req.session.userId = user._id
     req.session.userName = user.email
     res.redirect('/')

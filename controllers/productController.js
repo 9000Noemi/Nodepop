@@ -10,9 +10,9 @@ export function index(req, res, next) {
 export async function createProduct(req, res, next) {
   try {
     const userId = req.session.userId
-    const {name, price, image, tags} = req.body
+    const { name, price, image, tags } = req.body
 
-    // creo una instancia de producto en memoria
+    // crear una instancia de producto en memoria
     const product = new Product({
       name,
       owner: userId,
@@ -21,7 +21,7 @@ export async function createProduct(req, res, next) {
       tags
     })
 
-    // la guardo en base de datos
+    // guardarla en base de datos
     await product.save()
 
     res.redirect('/')

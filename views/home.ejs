@@ -1,40 +1,51 @@
 <%- include('header.ejs') %>
 
-<div class="container">
-    <h3><%= title %></h3>
-    
+  <div class="container">
+    <h3>
+      <%= title %>
+    </h3>
+
     <% // Verificar si el usuario está logado %>
-    <% if (!session.userId) { %>
+      <% if (!session.userId) { %>
 
-      <!-- Contenido para usuarios NO logados -->
-      <p>Para ver el contenido debes hacer <a href="/login">login</a></p>
+        <!-- Contenido para usuarios NO logados -->
+        <p>Para ver el contenido debes hacer <a href="/login">login</a></p>
 
-    <% } else { %>
+        <% } else { %>
 
-      <!-- Contenido para usuarios logados -->
-      <p>Usuario: <%= session.userName %></p>
-      <h4>Mis productos</h4>
-
-      <!--Si products existe y tiene al menos un producto se mostrarán en una lista.-->
-      <% if (products && products.length > 0) { %>
-        <% products.forEach(product => { %>
-          <p>
-            <h5><strong><%= product.name %></strong></h5>
-            <ul><%= product.price %></ul>
-            <ul><%= product.image %></ul>
-            <ul><%= product.tags %></ul>
-            <a href="/product/delete/<%= product.id %>">
-              <i class="bi bi-trash"></i> <!-- Icono para borrar -->
-            </a>
+          <!-- Contenido para usuarios logados -->
+          <p>Usuario: <%= session.userName %>
           </p>
-        <% }) %>
+          <h4>Mis productos</h4>
+
+          <!--Si products existe y tiene al menos un producto se mostrarán en una lista.-->
+          <% if (products && products.length> 0) { %>
+            <% products.forEach(product=> { %>
+              <p>
+              <h5><strong>
+                  <%= product.name %>
+                </strong></h5>
+              <ul>
+                <%= product.price %>
+              </ul>
+              <ul>
+                <%= product.image %>
+              </ul>
+              <ul>
+                <%= product.tags %>
+              </ul>
+              <a href="/product/delete/<%= product.id %>">
+                <i class="bi bi-trash"></i> <!-- Icono para borrar -->
+              </a>
+              </p>
+              <% }) %>
 
 
-     <!--Si products está vacío o no existen productos, mostramos el mensaje-->
-      <% } else { %>
-        <p>No tienes productos publicados.</p>
-      <% } %>
-    <% } %>
-</div>
+                <!--Si products está vacío o no existen productos, mostramos el mensaje-->
+                <% } else { %>
+                  <p>No tienes productos publicados.</p>
+                  <% } %>
+                    <% } %>
+  </div>
 
-<%- include('footer.ejs') %>
+  <%- include('footer.ejs') %>

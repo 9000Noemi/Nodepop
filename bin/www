@@ -7,13 +7,14 @@ import createDebug from 'debug';
 const debug = createDebug('nodepop:www');
 
 //variable de entorno: la leemos con el objeto process, que tiene la propiedad env que tiene la info de variables de entorno
+
 const port = process.env.PORT || '3000';
 
 
-//Crear el HTTP server.
+//Crear el HTTP server
 
 const server = http.createServer(app)
 
 server.on('error', err => console.error(err))
-server.on('listening', () => { debug(`Servidor arrancado en puerto ${port}`)})
+server.on('listening', () => { debug(`Servidor arrancado en puerto ${port}`) })
 server.listen(port)

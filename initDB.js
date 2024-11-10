@@ -8,7 +8,7 @@ import { userInfo } from 'node:os';
 const connection = await connectMongoose()
 
 const questionResponse = await ask('Are you sure you want to  empty the database and create initial data?')
-if (questionResponse.toLowerCase() !== 'yes'){
+if (questionResponse.toLowerCase() !== 'yes') {
     console.log('Operation aborted')
     process.exit()
 }
@@ -21,17 +21,17 @@ connection.close()
 
 //Cargar usuarios iniciales
 
-async function initUsers(){
+async function initUsers() {
     //borrar usuarios
     const deleteResult = await User.deleteMany()
     console.log(`Borrados ${deleteResult.deletedCount} usuarios.`)
 
     const hashedPassword = await User.hashPassword('1234')
-    
+
     //crear usuarios iniciales
     const insertResult = await User.insertMany([
-        {email: 'user1@example.com', password: hashedPassword},
-        {email: 'user2@example.com', password: hashedPassword}
+        { email: 'user1@example.com', password: hashedPassword },
+        { email: 'user2@example.com', password: hashedPassword }
     ])
 
     console.log(`Creados ${insertResult.length} usuarios.`)
@@ -39,7 +39,7 @@ async function initUsers(){
 
 //Cargar productos iniciales
 
-async function initProducts(){
+async function initProducts() {
     //borrar productos
     const deleteResult = await Product.deleteMany()
     console.log(`Borrados ${deleteResult.deletedCount} productos.`)
@@ -48,31 +48,31 @@ async function initProducts(){
     const [user1, user2] = await Promise.all([
         User.findOne({ email: 'user1@example.com' }),
         User.findOne({ email: 'user2@example.com' }),
-      ])
+    ])
 
     //crear productos iniciales
     const insertResult = await Product.insertMany([
         {
-            name: 'Abrigo', 
-            price: '125', 
-            image: "https://www.thenorthface.es/es-es/p/hombre-211701/chaqueta-mountain-q-para-hombre-NF0A5IG2?color=1NO", 
-            tags:["Work", "Lifestyle"], 
-            owner: user1._id
-        },
-        
-        {
-            name: 'Coche', 
-            price: '10200', 
-            image: "https://www.ocasionplus.com/coches-segunda-mano/opel-astra-16-selective-con-125126km-2015-9pkbzqac",
-            tags:["Motor"],
+            name: 'Abrigo',
+            price: '125',
+            image: "https://www.thenorthface.es/es-es/p/hombre-211701/chaqueta-mountain-q-para-hombre-NF0A5IG2?color=1NO",
+            tags: ["Work", "Lifestyle"],
             owner: user1._id
         },
 
         {
-            name: 'Movil', 
-            price: '950', 
+            name: 'Coche',
+            price: '10200',
+            image: "https://www.ocasionplus.com/coches-segunda-mano/opel-astra-16-selective-con-125126km-2015-9pkbzqac",
+            tags: ["Motor"],
+            owner: user1._id
+        },
+
+        {
+            name: 'Movil',
+            price: '950',
             image: "https://www.apple.com/es/shop/buy-iphone/iphone-15",
-            tags:["Mobile"],
+            tags: ["Mobile"],
             owner: user2._id
         }
     ])
@@ -81,7 +81,7 @@ async function initProducts(){
 }
 
 
-function ask(questionText){
+function ask(questionText) {
     return new Promise((resolve, reject) => {
         const consoleInterface = readline.createInterface({
             input: process.stdin,

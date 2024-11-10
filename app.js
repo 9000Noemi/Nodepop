@@ -25,8 +25,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-// Indicamos donde estan las vistas y qué motor de plantillas usamos:
-app.set('views', 'views') 
+// Indicar donde estan las vistas y qué motor de plantillas usamos:
+app.set('views', 'views')
 app.set('view engine', 'ejs')
 
 
@@ -55,16 +55,16 @@ app.post('/product/new', sessionManager.isLoggedIn, productController.createProd
 app.get('/product/delete/:productId', sessionManager.isLoggedIn, productController.deleteProduct);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
 
   //message se lo pasamos a la vista error.ejs 
   res.locals.message = err.message;
-  
+
   res.locals.error = process.env.NODEPOP_ENV === 'development' ? err : {};
 
   // render the error page
