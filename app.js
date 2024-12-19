@@ -14,6 +14,7 @@ import * as homeController from './controllers/homeController.js'
 import * as productController from './controllers/productController.js'
 import * as loginController from './controllers/loginController.js'
 
+import upload from './lib/uploadConfigure.js'
 
 await connectMongoose()
 
@@ -51,7 +52,7 @@ app.all('/logout', loginController.logout)
 
 //Endpoints privados
 app.get('/product/new', sessionManager.isLoggedIn, productController.index)
-app.post('/product/new', sessionManager.isLoggedIn, productController.createProduct);
+app.post('/product/new', sessionManager.isLoggedIn, upload.single('photo'), productController.createProduct);
 app.get('/product/delete/:productId', sessionManager.isLoggedIn, productController.deleteProduct);
 
 // catch 404 and forward to error handler

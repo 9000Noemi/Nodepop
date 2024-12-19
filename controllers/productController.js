@@ -12,13 +12,16 @@ export async function createProduct(req, res, next) {
     const userId = req.session.userId
     const { name, price, image, tags } = req.body
 
+    console.log(req.file)
+
     // crear una instancia de producto en memoria
     const product = new Product({
       name,
       owner: userId,
       price,
       image,
-      tags
+      tags,
+      photo: req.file.filename
     })
 
     // guardarla en base de datos

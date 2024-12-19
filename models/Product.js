@@ -7,7 +7,8 @@ const productSchema = new Schema({
     owner: { ref: 'User', type: mongoose.Schema.Types.ObjectId },
     price: Number,
     image: String,
-    tags: [String]
+    tags: [String],
+    photo: String
 });
 
 const Product = mongoose.model('Product', productSchema)
