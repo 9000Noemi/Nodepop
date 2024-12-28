@@ -15,6 +15,7 @@ import * as productController from './controllers/productController.js'
 import * as loginController from './controllers/loginController.js'
 
 import upload from './lib/uploadConfigure.js'
+import i18n from './lib/i18nConfigure.js'
 
 await connectMongoose()
 
@@ -35,10 +36,11 @@ app.use(logger('dev'));
 app.use(express.json());// parsear el body que venga en formato JSON
 app.use(express.urlencoded({ extended: false })); // parsear el body que venga urlencoded (formularios)
 app.use(cookieParser());
-app.use(express.static(join(__dirname, 'public')));
+app.use(express.static('public'));
+
 
 /**
- * Application routes
+ * Website routes
  */
 
 // Middleware de sesión creado en sessionManager:
@@ -52,6 +54,7 @@ app.all('/logout', loginController.logout)
 
 //Endpoints privados
 app.get('/product/new', sessionManager.isLoggedIn, productController.index)
+//   en upload.single ponemos el "name" del formulario de new-product.ejs: "photo"
 app.post('/product/new', sessionManager.isLoggedIn, upload.single('photo'), productController.createProduct);
 app.get('/product/delete/:productId', sessionManager.isLoggedIn, productController.deleteProduct);
 

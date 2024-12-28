@@ -25,12 +25,19 @@
               <h5><strong>
                   <%= product.name %>
                 </strong></h5>
+
+              <!--Si hay imagen se muestra cogiendola de la carpeta photos, si no imagen de placehold-->  
+              <img 
+              src="<%= product.photo ? `/photos/${product.photo}`: 'https://placehold.co/170'%>" 
+              alt="photo" 
+              width="170"
+              >
+
               <ul>
                 <%= product.price %>
               </ul>
-              <ul>
-                <%= product.image %>
-              </ul>
+    
+        
               <ul>
                 <%= product.tags %>
               </ul>

@@ -10,7 +10,7 @@ export function index(req, res, next) {
 export async function createProduct(req, res, next) {
   try {
     const userId = req.session.userId
-    const { name, price, image, tags } = req.body
+    const { name, price, tags } = req.body
 
     console.log(req.file)
 
@@ -19,7 +19,6 @@ export async function createProduct(req, res, next) {
       name,
       owner: userId,
       price,
-      image,
       tags,
       photo: req.file.filename
     })
