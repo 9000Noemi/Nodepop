@@ -9,14 +9,14 @@
       <% if (!session.userId) { %>
 
         <!-- Contenido para usuarios NO logados -->
-        <p>Para ver el contenido debes hacer <a href="/login">login</a></p>
+        <p><%= __('To see the content you must') %> <a href="/login">login</a></p>
 
         <% } else { %>
 
           <!-- Contenido para usuarios logados -->
-          <p>Usuario: <%= session.userName %>
+          <p><%= __('User') %>: <%= session.userName %>
           </p>
-          <h4>Mis productos</h4>
+          <h4><%= __('My products') %></h4>
 
           <!--Si products existe y tiene al menos un producto se mostrarán en una lista.-->
           <% if (products && products.length> 0) { %>
@@ -50,7 +50,7 @@
 
                 <!--Si products está vacío o no existen productos, mostramos el mensaje-->
                 <% } else { %>
-                  <p>No tienes productos publicados.</p>
+                  <p><%=__('There are not published products.')%></p>
                   <% } %>
                     <% } %>
   </div>

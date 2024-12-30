@@ -16,6 +16,7 @@ import * as loginController from './controllers/loginController.js'
 
 import upload from './lib/uploadConfigure.js'
 import i18n from './lib/i18nConfigure.js'
+import * as langController from './controllers/langController.js'
 
 await connectMongoose()
 
@@ -45,6 +46,17 @@ app.use(express.static('public'));
 
 // Middleware de sesión creado en sessionManager:
 app.use(sessionManager.middleware, sessionManager.useSessionInViews);
+
+//Middleware i18n para leer la cabecera de idioma y elegir el fichero de idioma correspondiente
+app.use(i18n.init);
+
+/*Ruta definida en Express que utiliza un controlador (langController.changeLocale) 
+como manejador de esa ruta.
+Podemos hacerlo usando un PARAMETRO DE RUTA: 
+        app.get('/change-locale/:locale', langController.changeLocale)
+o usando QUERY PARAMS:*/
+app.get('/change-locale', langController.changeLocale);
+
 
 //Endpoints publicos
 app.get('/', homeController.index)

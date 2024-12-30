@@ -2,27 +2,27 @@
 
   <div class="container">
 
-    <h3>New Product</h3>
+    <h3><%= __('New Product') %></h3>
 
     <form method="POST" enctype="multipart/form-data">
 
       <div class="mb-3">
-        <label for="name" class="form-label">Nombre</label>
+        <label for="name" class="form-label"><%= __('Name') %></label>
         <input type="text" name="name" class="form-control" id="name">
       </div>
 
       <div class="mb-3">
-        <label for="price" class="form-label">Precio</label>
+        <label for="price" class="form-label"><%= __('Price') %></label>
         <input type="number" name="price" class="form-control" id="price">
       </div>
 
       <div class="mb-3">
-        <label for="photo" class="form-label">Foto</label>
+        <label for="photo" class="form-label"><%= __('Photo') %></label>
         <input type="file" name="photo" class="form-control" id="photo">
       </div>
 
       <div class="mb-3">
-        <legend>Etiquetas</legend>
+        <legend><%= __('Tags') %></legend>
 
         <label>
           <input type="checkbox" name="tags" value="work">
@@ -42,7 +42,7 @@
         </label>
       </div>
 
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <button type="submit" class="btn btn-primary"><%= __('Submit') %></button>
 
     </form>
   </div>

@@ -15,7 +15,11 @@ export async function index(req, res, next) {
     }
 
     // Renderizamos la vista 'home' con los datos
-    res.render('home', { title: 'Inicio', products: res.locals.products });
+    res.render('home', 
+      //res.__ es la funcion de I18n para internacionalizar la palabra Home
+      { title: res.__('Home'), 
+        products: res.locals.products 
+      });
   } catch (error) {
     console.error("Error al cargar la página de inicio:", error);
     next(error); // Pasamos el error al middleware de manejo de errores
