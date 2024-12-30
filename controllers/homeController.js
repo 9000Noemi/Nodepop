@@ -6,6 +6,12 @@ export async function index(req, res, next) {
 
   try {
     const userId = req.session.userId;
+/*
+    De momento no lo estoy usando:
+    const limit = req.query.limit
+    const skip = req.query.skip
+    const sort = req.query.sort
+*/
 
     // Si hay un usuario logado, buscamos los productos asociados a ese usuario
     if (userId) {
@@ -15,10 +21,11 @@ export async function index(req, res, next) {
     }
 
     // Renderizamos la vista 'home' con los datos
-    res.render('home', 
+    res.render('home',
       //res.__ es la funcion de I18n para internacionalizar la palabra Home
-      { title: res.__('Home'), 
-        products: res.locals.products 
+      {
+        title: res.__('Home'),
+        products: res.locals.products
       });
   } catch (error) {
     console.error("Error al cargar la página de inicio:", error);

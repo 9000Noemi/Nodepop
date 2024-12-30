@@ -17,6 +17,7 @@ import * as loginController from './controllers/loginController.js'
 import upload from './lib/uploadConfigure.js'
 import i18n from './lib/i18nConfigure.js'
 import * as langController from './controllers/langController.js'
+import * as apiProductController from './controllers/api/apiProductController.js'
 
 await connectMongoose()
 
@@ -40,6 +41,16 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 
+/**
+ * API routes
+ */
+
+//La ruta seria: http://localhost:3000/api/products. El resto se ejecuta al hacer esa solicitud.
+app.get('/api/products', apiProductController.apiProductList)
+
+
+
+//-------------------------------------------------------------------------
 /**
  * Website routes
  */
