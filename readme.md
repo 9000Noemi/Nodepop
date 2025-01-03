@@ -34,3 +34,29 @@ To start in development mode:
 ```
 npm run dev
 ```
+
+## API
+
+Base URL: http://localhost:3000/api
+
+### Product list
+
+GET /api/products
+
+```
+{
+    "result": [
+        { "_id": "6763ff000c637d5c9bc6ff74",
+            "name": "Libro",
+            "owner": "6730cca48b5bbac69211d066",
+            "price": 13,
+            "tags": [
+                "lifestyle"
+            ],
+            "photo": "photo-1734606592275-libro.png",
+            "__v": 0
+        },
+        // ...
+        ]
+}
+```
