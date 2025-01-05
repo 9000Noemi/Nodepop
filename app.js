@@ -45,9 +45,14 @@ app.use(express.static('public'));
  * API routes
  */
 
-//La ruta seria: http://localhost:3000/api/products. El resto se ejecuta al hacer esa solicitud.
+//GET /api/products La ruta seria: http://localhost:3000/api/products. El resto se ejecuta al hacer esa solicitud.
 app.get('/api/products', apiProductController.apiProductList)
 
+//GET /api/products/<productID>
+app.get('/api/products/:productId', apiProductController.apiProductGetOne)
+
+//POST /api/products
+app.post('/api/products', upload.single('photo'), apiProductController.apiProductNew)
 
 
 //-------------------------------------------------------------------------
@@ -64,7 +69,7 @@ app.use(i18n.init);
 /*Ruta definida en Express que utiliza un controlador (langController.changeLocale) 
 como manejador de esa ruta.
 Podemos hacerlo usando un PARAMETRO DE RUTA: 
-        app.get('/change-locale/:locale', langController.changeLocale)
+    app.get('/change-locale/:locale', langController.changeLocale)
 o usando QUERY PARAMS:*/
 app.get('/change-locale', langController.changeLocale);
 
@@ -77,7 +82,7 @@ app.all('/logout', loginController.logout)
 
 //Endpoints privados
 app.get('/product/new', sessionManager.isLoggedIn, productController.index)
-//   en upload.single ponemos el "name" del formulario de new-product.ejs: "photo"
+  //en upload.single ponemos el "name" del formulario de new-product.ejs: "photo"
 app.post('/product/new', sessionManager.isLoggedIn, upload.single('photo'), productController.createProduct);
 app.get('/product/delete/:productId', sessionManager.isLoggedIn, productController.deleteProduct);
 
@@ -88,6 +93,13 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
+
+
+  // API error, send response with JSON
+  if (req.url.startsWith('/api/')) {
+    res.json({ error: err.message })
+    return
+  }
 
   //message se lo pasamos a la vista error.ejs 
   res.locals.message = err.message;
