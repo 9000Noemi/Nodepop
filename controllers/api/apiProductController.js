@@ -79,3 +79,26 @@ export async function apiProductGetOne(req, res, next) {
       next(error)
     }
   }
+
+
+  //Actualizar un producto
+  export async function apiProductUpdate(req, res, next) {
+    try {
+      const productId = req.params.productId
+
+      //variable para recoger los datos del producto que vamos a actualizar:
+      const productData = req.body
+
+      productData.photo = req.file?.filename
+
+      const updatedProduct = await Product.findByIdAndUpdate(productId, productData, {
+        new: true // para obtener el documento actualizado}
+      })
+
+      res.json({ result: updatedProduct })
+
+    } catch (error) {
+      next(error)
+    }
+
+  }

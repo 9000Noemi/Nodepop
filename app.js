@@ -48,11 +48,15 @@ app.use(express.static('public'));
 //GET /api/products La ruta seria: http://localhost:3000/api/products. El resto se ejecuta al hacer esa solicitud.
 app.get('/api/products', apiProductController.apiProductList)
 
-//GET /api/products/<productID>
+//GET /api/products/<productID>    RETORNAR UN PRODUCTO
 app.get('/api/products/:productId', apiProductController.apiProductGetOne)
 
-//POST /api/products
+//POST /api/products     CREAR
 app.post('/api/products', upload.single('photo'), apiProductController.apiProductNew)
+
+//PUT /api/products/<productID>   ACTUALIZAR UN PRODUCTO
+app.put('/api/products/:productId', upload.single('photo'), apiProductController.apiProductUpdate)
+
 
 
 //-------------------------------------------------------------------------
