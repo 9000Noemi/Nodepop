@@ -102,3 +102,18 @@ export async function apiProductGetOne(req, res, next) {
     }
 
   }
+
+
+  //Borrar un producto
+  export async function apiProductDelete(req, res, next) {
+    try {
+      const productId = req.params.productId
+
+      await Product.deleteOne({ _id: productId})
+
+      res.json()
+
+    } catch (error) {
+      next(error)
+    }
+  }
