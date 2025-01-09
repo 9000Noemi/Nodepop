@@ -45,6 +45,9 @@ app.use(express.static('public'));
  * API routes
  */
 
+//POST /api/login   HACER LOGIN EN EL API RETORNANDO UN JWT
+app.post('/api/login', apiLoginController.loginJWT)
+
 //GET /api/products. Ruta: http://localhost:3000/api/products.El resto se ejecuta al hacer esa solicitud.
 app.get('/api/products', apiProductController.apiProductList)
 
