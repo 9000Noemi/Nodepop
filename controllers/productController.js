@@ -49,6 +49,8 @@ export async function deleteProduct(req, res, next) {
     return next(createError(404, 'Not found'))
   }
 
+  //comprobar la propiedad antes de eliminar
+  //owner es un objeto(mirar model), para compararlo con userId hay que pasarlo a str
   if (product.owner.toString() !== userId) {
     console.warn(`WARNING - el usuario ${userId} no está autorizado para eliminar este producto.`)
     return next(createError(401, 'Not authorized'))

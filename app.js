@@ -55,16 +55,16 @@ app.post('/api/login', apiLoginController.loginJWT)
 app.get('/api/products', jwtAuth.verifyToken, apiProductController.apiProductList)
 
 //GET /api/products/<productID>    RETORNAR UN PRODUCTO
-app.get('/api/products/:productId', apiProductController.apiProductGetOne)
+app.get('/api/products/:productId', jwtAuth.verifyToken, apiProductController.apiProductGetOne)
 
 //POST /api/products     CREAR
-app.post('/api/products', upload.single('photo'), apiProductController.apiProductNew)
+app.post('/api/products', jwtAuth.verifyToken, upload.single('photo'), apiProductController.apiProductNew)
 
 //PUT /api/products/<productID>   ACTUALIZAR UN PRODUCTO
-app.put('/api/products/:productId', upload.single('photo'), apiProductController.apiProductUpdate)
+app.put('/api/products/:productId', jwtAuth.verifyToken, upload.single('photo'), apiProductController.apiProductUpdate)
 
 //DELETE /api/products/<productID>  BORRAR UN PRODUCTO
-app.delete('/api/products/:productId', apiProductController.apiProductDelete)
+app.delete('/api/products/:productId', jwtAuth.verifyToken, apiProductController.apiProductDelete)
 
 //-------------------------------------------------------------------------
 /**
