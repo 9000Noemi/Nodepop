@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import readline from 'node:readline'
 import connectMongoose from "./lib/connectMongoose.js";
 

@@ -18,6 +18,9 @@ import upload from './lib/uploadConfigure.js'
 import i18n from './lib/i18nConfigure.js'
 import * as langController from './controllers/langController.js'
 import * as apiProductController from './controllers/api/apiProductController.js'
+import * as apiLoginController from './controllers/api/apiLoginController.js'
+import * as jwtAuth from './lib/jwtAuthMiddleware.js'
+
 
 await connectMongoose()
 
@@ -48,8 +51,8 @@ app.use(express.static('public'));
 //POST /api/login   HACER LOGIN EN EL API RETORNANDO UN JWT
 app.post('/api/login', apiLoginController.loginJWT)
 
-//GET /api/products. Ruta: http://localhost:3000/api/products.El resto se ejecuta al hacer esa solicitud.
-app.get('/api/products', apiProductController.apiProductList)
+//GET /api/products. Ruta: http://localhost:3000/api/products. El resto se ejecuta al hacer esa solicitud.
+app.get('/api/products', jwtAuth.verifyToken, apiProductController.apiProductList)
 
 //GET /api/products/<productID>    RETORNAR UN PRODUCTO
 app.get('/api/products/:productId', apiProductController.apiProductGetOne)
