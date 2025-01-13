@@ -12,26 +12,34 @@ git clone https://github.com/9000Noemi/Nodepop
 ### Install dependencies
 
 To install all dependencies:
-```
+```sh
 npm install
 ```
-
 ### Deploy
-On first deploy you can run next command to empty the database and create initial data:
 
+On first deploy copy .env.example to .env and custimize environment variables
+
+```sh
+cp .env.example .env
 ```
+
+Then, you can run next command to empty the database and create initial data:
+
+```js
 npm run initDB
 ```
 
+## Start
+
 To start in production mode:
 
-```
+```sh
 npm start
 ```
 
 To start in development mode:
 
-```
+```sh
 npm run dev
 ```
 
