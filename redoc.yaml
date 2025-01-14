@@ -1,0 +1,216 @@
+openapi: 3.0.3
+info:
+  title: NodePop API
+  description: API for managing users, products, and authentication in the NodePop platform.
+  version: 1.0.0
+  contact:
+    name: Support Team
+    email: support@nodepop.com
+
+servers:
+  - url: http://localhost:3000
+    description: Local server
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        password:
+          type: string
+          format: password
+          example: mypassword123
+      required:
+        - email
+        - password
+    LoginResponse:
+      type: object
+      properties:
+        tokenJWT:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        photo:
+          type: string
+        owner:
+          type: string
+      required:
+        - name
+        - price
+        - owner
+    ProductListResponse:
+      type: object
+      properties:
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        count:
+          type: integer
+          example: 10
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Authentication
+    description: Endpoints for user login and authentication
+  - name: Products
+    description: Endpoints for managing products
+
+paths:
+  /api/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticate a user and return a JWT token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successfully authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Invalid credentials
+
+  /api/products:
+    get:
+      tags:
+        - Products
+      summary: List products
+      description: Retrieve a list of products owned by the logged-in user.
+      parameters:
+        - name: name
+          in: query
+          description: Filter by product name
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Limit the number of products returned
+          schema:
+            type: integer
+        - name: skip
+          in: query
+          description: Skip a number of products
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: Sort products by a specific field
+          schema:
+            type: string
+        - name: fields
+          in: query
+          description: Select specific fields to return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListResponse'
+    post:
+      tags:
+        - Products
+      summary: Create a new product
+      description: Create a new product and associate it with the logged-in user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+  /api/products/{productId}:
+    get:
+      tags:
+        - Products
+      summary: Get product by ID
+      description: Retrieve a single product by its ID.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The ID of the product
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+
+    put:
+      tags:
+        - Products
+      summary: Update a product
+      description: Update an existing product by ID.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The ID of the product
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+    delete:
+      tags:
+        - Products
+      summary: Delete a product
+      description: Delete a product by ID.
+      parameters:
+        - name: productId

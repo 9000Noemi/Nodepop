@@ -22,6 +22,7 @@ import * as apiLoginController from './controllers/api/apiLoginController.js'
 import * as jwtAuth from './lib/jwtAuthMiddleware.js'
 
 
+
 await connectMongoose()
 
 const app = express();
@@ -66,7 +67,7 @@ app.put('/api/products/:productId', jwtAuth.verifyToken, upload.single('photo'),
 //DELETE /api/products/<productID>  BORRAR UN PRODUCTO
 app.delete('/api/products/:productId', jwtAuth.verifyToken, apiProductController.apiProductDelete)
 
-//-------------------------------------------------------------------------
+
 /**
  * Website routes
  */
@@ -90,6 +91,7 @@ app.get('/', homeController.index)
 app.get('/login', loginController.index)
 app.post('/login', loginController.login)
 app.all('/logout', loginController.logout)
+
 
 //Endpoints privados
 app.get('/product/new', sessionManager.isLoggedIn, productController.index)

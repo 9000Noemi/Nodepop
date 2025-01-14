@@ -11,5 +11,6 @@
 	"Submit": "Enviar",
 	"Email address": "Correo electrónico",
 	"Password": "Contraseña",
-	"There are not published products.": "There are not published products."
+	"There are not published products.": "There are not published products.",
+	"API Documentation": "Documentación API"
 }

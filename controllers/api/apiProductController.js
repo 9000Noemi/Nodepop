@@ -1,7 +1,6 @@
 import createError from 'http-errors'
 import Product from '../../models/Product.js'
 
-
 //Devolver una lista de productos
 export async function apiProductList(req, res, next) {
   try {
