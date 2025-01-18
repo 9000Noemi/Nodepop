@@ -48,7 +48,7 @@ export async function apiProductList(req, res, next) {
 export async function apiProductGetOne(req, res, next) {
   try {
 
-    //http://localhost:3000/api/products/6730cca48b5bbac69211d06d
+    //http://localhost:3000/api/products/6784d8c7c210e48a4e7451aa
 
     //Variable con el id de usuario logado de jwtAutMiddleware
     const userId = req.apiUserId

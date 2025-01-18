@@ -110,7 +110,7 @@ app.use(function (err, req, res, next) {
 
   // API error, send response with JSON
   if (req.url.startsWith('/api/')) {
-    res.json({ error: err.message })
+    res.status(err.status || 500).json({ error: err.message });
     return
   }
 
